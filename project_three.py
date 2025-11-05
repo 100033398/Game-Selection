@@ -335,13 +335,13 @@ def ai_trivia(wins):
         return wins
     client = OpenAI(
         api_key= ai_key,
-        base_url="https://api.llama.com/compat/v1/"
+        base_url=os.getenv("AI_ENDPOINT")
     )
     prompt = "Ask me a super hard trivia question (only 1) with 4 multiple choice answers (A, B, C, D). I will return the user's answer. If the answer is correct, respond with 'Correct!'. If the answer is incorrect, respond with 'Incorrect, the correct answer is X.' where X is the correct answer. Assume the output is going straight to the user. DO NOT REPSOND WITH ANYTHING OTHER THAN THE QUESTION AND ANSWERS. FORMAT IT LIKE THIS: 'Question: [question here] A) [answer A] B) [answer B] C) [answer C] D) [answer D]' and for the answers, only respond with the letter (A, B, C, or D) of the correct answer when telling the user they are incorrect. AS IF THE USER IS SEEING IT DIRECTLY."
     messages.append({"role": "system", "content": prompt})
     response = client.chat.completions.create(
         messages=messages,
-        model="Llama-4-Maverick-17B-128E-Instruct-FP8",
+        model=os.getenv("MODEL"),
         temperature=0.6,
         max_completion_tokens=2048,
         top_p=0.9
@@ -351,7 +351,7 @@ def ai_trivia(wins):
     messages.append({"role": "user", "content": "User responded with: " + user_answer})
     response = client.chat.completions.create(
         messages=messages,
-        model="Llama-4-Maverick-17B-128E-Instruct-FP8",
+        model=os.getenv("MODEL"),
         temperature=0.6,
         max_completion_tokens=2048,
         top_p=0.9
