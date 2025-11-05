@@ -19,7 +19,7 @@ Game Selection is a lightweight Python script to allow users to play multiple ga
 
 Requirements:
 
-	•	Python 3.9+
+	• Python 3.9+
 	•	Openai
 	•	python-dotenv
 
