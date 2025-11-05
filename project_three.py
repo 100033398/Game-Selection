@@ -374,16 +374,12 @@ print("Welcome to the choose a challenge game!")
 wins = 0
 games_played = 0
 messages = []
-while True:
+while game_choice != 0:
     try:
         game_choice = input(" 0) Quit \n 1) High Low Game \n 2) Rock Paper Scissors \n 3) Blackjack \n 4) Hang Man \n 5) Slot Machine \n 6) Tic-Tac-Toe \n 7) Dice Game \n 8) AI Trivia \n Choose a game to play (0-8): \n").strip()
     except ValueError:
         print("Please enter a number between 0 and 8.")
-    if game_choice == "0":
-        print("Thanks for playing!") # Prints thank you message
-        print_wins(wins, games_played, end_game=True) # Prints wins
-        break # Breaks out of the loop
-    elif game_choice == "1": # Levi
+    if game_choice == "1": # Levi
         games_played += 1 # Increments games played
         wins = high_low_game(wins) # Plays high low game
         print_wins(wins, games_played)
@@ -417,3 +413,5 @@ while True:
         print_wins(wins, games_played)
     else:
         print("Invalid choice. Please enter a number between 0 and 8.")
+print("Thanks for playing!") # Prints thank you message
+print_wins(wins, games_played, end_game=True) # Prints wins
