@@ -22,6 +22,12 @@ Requirements:
 	• Python 3.9+
 	• Openai
 	• python-dotenv
-  • Llama API key
+	• OpenAI compatible API key, endpoint and model
+
+  
+Copy the .env using
+```bash
+cp .env.example .env
+```
 
 There should be a .env file attached, if not please contact us. In there will be a .env file that you must put in the same folder as the project.
