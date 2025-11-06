@@ -23,7 +23,7 @@ Requirements:
 	• Python 3.9+
 	• git
 	• pip
-	• Openai
+	• Openai python library
 	• python-dotenv
 	• OpenAI compatible API key, endpoint and model (MUST BE OPENAI library compatible!)
 
