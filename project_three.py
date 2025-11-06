@@ -383,7 +383,7 @@ B) (POSSIBLE ANSWER)
 C) (POSSIBLE ANSWER)
 D) (POSSIBLE ANSWER)
 
-etc if needed
+etc if needed, you may do more or less than than a-d, but please do not do more than A-H
 
 """
 messages.append({"role": "system", "content": prompt})
