@@ -22,7 +22,7 @@ Requirements:
 	• Python 3.9+
 	• Openai
 	• python-dotenv
-	• OpenAI compatible API key, endpoint and model
+	• OpenAI compatible API key, endpoint and model (MUST BE OPENAI library compatible!)
 
   
 Copy the .env using
