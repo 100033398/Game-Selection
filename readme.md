@@ -23,8 +23,8 @@ Requirements:
 	• Python 3.9+
 	• git
 	• pip
-	• OpenAI Python library
-	• python-dotenv
+	• OpenAI Python library (If you follow instructions it will be added with the install)
+	• python-dotenv (If you follow instructions it will be added with the install)
 	• OpenAI compatible API key, endpoint and model (MUST BE OPENAI library compatible!)
 
 ### Get the repo using git:
