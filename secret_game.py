@@ -297,7 +297,7 @@ def play_secret_game(wins):
             wins += 1
         for event in pygame.event.get(): # Used to get the events from the pygame, for example, the mouse button down to click on the squares, or escape to quit the game
             if event.type == pygame.QUIT:
-                running = False 
+                running = False
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
