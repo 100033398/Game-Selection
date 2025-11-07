@@ -342,12 +342,12 @@ def ask_ai():
         from openai import OpenAI # Imports the OpenAI library.
     except ImportError:
         print("OpenAI library is not installed. Trivia game cannot be played.")
-        return wins
+        return None
     try:
         ai_key = os.getenv("AI_API_KEY") # Gets the AI API key from the environment variables.
     except KeyError:
         print("AI_API_KEY environment variable is not set. Trivia game cannot be played.") # If the AI API key is not set, the user is told and the game ends.
-        return wins
+        return None
     client = OpenAI(
         api_key= ai_key, # Sets the API key to the API key.
         base_url=os.getenv("AI_ENDPOINT") # Sets the base URL to the base URL.
@@ -364,11 +364,17 @@ def ask_ai():
 def ai_trivia(wins): # AI Trivia
     global messages # Sets the messages to the messages.
     response = ask_ai()
+    if not response:
+        print("AI not configured; skipping AI Trivia.")
+        return wins
     print(response)
     messages.append({"role": "assistant", "content": response})
     user_answer = input("Your answer (A, B, C, D): ").strip().upper()
     messages.append({"role": "user", "content": "User responded with: " + user_answer})
     response = ask_ai()
+    if not response:
+        print("AI not configured; skipping AI Trivia.")
+        return wins
     print(response)
     messages.append({"role": "assistant", "content": response})
     messages.append({"role": "assistant", "content": "Ok, I will ask you another question. Don't give it yet, not until next time I ask you. NEXT QUESTION: "})
