@@ -4,22 +4,27 @@ import random
 
 def user_guesses(wins): # User guesses the number
     guesses = 0
-    randomInt = random.randint(1, 100)
-    userGuess = None
-    while userGuess != randomInt:
-        guesses += 1
-        try: # Tries to convert user number to int, if an error it is reported to user.
-            userGuess = int(input("Guess the number between 1 and 100: "))
+    target = random.randint(1, 100)
+    while True:
+        try:
+            g = int(input("Guess the number between 1 and 100: "))
         except ValueError:
             print("I need an integer!")
-        if userGuess > randomInt: # Keeps user in check
+            continue
+        if not 1 <= g <= 100:
+            print("Stay within 1 and100.") # If the user does not enter a valid number, they are told to enter a valid number.
+            continue
+        guesses += 1 # Increments the guesses.
+        if g > target: # If the user's guess is greater than the target, the user is told to guess lower.
             print("Too high!")
-        elif userGuess < randomInt:
+        elif g < target: # If the user's guess is less than the target, the user is told to guess higher.
             print("Too low!")
-    print(f"Congratulations! You've guessed the number in {guesses} tries.")
-    if guesses <= 7: #If they guessed it in allocated total guesses, they gain a win.
-        wins += 1
-    return wins
+        else: # If the user's guess is equal to the target, the user wins.
+            break
+    print(f"Congratulations! You've guessed the number in {guesses} tries.") # Prints the number of guesses it took the user to guess the number.
+    if guesses <= 7: # If the user guessed the number in 7 or less guesses, they gain a win.
+        wins += 1 # Increments the wins.
+    return wins # Returns the wins to the main block.
 
 def computer_guesses(wins): # Computer guesses the number
     while True: # Stays in loop to keep user in check and make sure nothing fails.
@@ -35,7 +40,7 @@ def computer_guesses(wins): # Computer guesses the number
     low, high = 1, range_max
     guesses = 0
     while True: 
-        if high - low > 2: #
+        if high - low > 2: # If the range is greater than 2, the computer guesses the number.
             guess = random.randint(low, high)
         else: # If the range is 2 or less, the computer guesses the number.
             guess = random.randint(low, high)
@@ -197,7 +202,7 @@ def hang_man(wins): # Hangman
       elif level == "" or level not in ["1","2","3","4","5"]: 
         print("Try again...")
 
-      secret_word = levels[num - 1] # Sets the secret word to a random word from the chosen level.
+    secret_word = levels[num - 1] # Sets the secret word to a random word from the chosen level.
     total_guesses = 10 # Sets the total guesses to 10.
     print("-" * 10) # Prints a line of dashes.
     print(f"{total_guesses} incorrect guesses left") # Prints the number of incorrect guesses left.
@@ -389,8 +394,9 @@ etc if needed, you may do more or less than than a-d, but please do not do more 
 
 """
 messages.append({"role": "system", "content": prompt}) # Adds the system prompt to the messages.
-while game_choice != 0:
-    try:
+game_choice = 100 # Sets up so while loop runs at least once.
+while game_choice != 0: # While the user does not want to quit, the games continue.
+    try: # Try to get the game choice as an integer.
         game_choice = int(input(" 0) Quit \n 1) High Low Game \n 2) Rock Paper Scissors \n 3) Blackjack \n 4) Hang Man \n 5) Slot Machine \n 6) Tic-Tac-Toe \n 7) Dice Game \n 8) AI Trivia \n Choose a game to play (0-8): \n").strip()) # Asks the user for the game they want to play.
     except ValueError:
         print("Please enter a number between 0 and 8.") # If the user does not enter a valid number, they are told to enter a valid number.
@@ -426,6 +432,10 @@ while game_choice != 0:
         games_played += 1 # Increments games played
         wins = ai_trivia(wins) # Plays AI Trivia
         print_wins(wins, games_played)
+    elif game_choice == 0: # If the user wants to quit, the game ends.
+        print("Thanks for playing!") # Prints thank you message
+        print_wins(wins, games_played, end_game=True) # Prints wins and the end of the game.
+        break # Breaks out of the loop
     else:
         print("Invalid choice. Please enter a number between 0 and 8.") # If the user does not enter a valid number, they are told to enter a valid number.
 print("Thanks for playing!") # Prints thank you message
