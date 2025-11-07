@@ -1,6 +1,10 @@
 # IMPORTS
 import os
 import random
+from openai import OpenAI
+from dotenv import load_dotenv
+messages = []
+load_dotenv()
 
 def user_guesses(wins): # User guesses the number
     guesses = 0
@@ -322,19 +326,13 @@ def dice_game(wins): # Dice Game
             print(f"Computer scored higher than you! You lost!")
             return wins
 
-def ai_trivia(wins): # AI Trivia
+def ask_ai():
     global messages # Sets the messages to the messages.
     try:
         from openai import OpenAI # Imports the OpenAI library.
     except ImportError:
         print("OpenAI library is not installed. Trivia game cannot be played.")
         return wins
-    try:
-        from dotenv import load_dotenv # Imports the dotenv library.
-    except ImportError:
-        print("dotenv library is not installed. Trivia game cannot be played.")
-        return wins
-    load_dotenv()
     try:
         ai_key = os.getenv("AI_API_KEY") # Gets the AI API key from the environment variables.
     except KeyError:
@@ -351,24 +349,26 @@ def ai_trivia(wins): # AI Trivia
         max_completion_tokens=2048, # Sets the maximum completion tokens to 2048.
         top_p=0.9 # Sets the top p to 0.9.
         )
-    print(response.choices[0].message.content)
-    user_answer = input("Your answer (A, B, C, D): ").strip().upper() # Asks the user for their answer.
-    messages.append({"role": "user", "content": "User responded with: " + user_answer}) # Adds the user's answer to the messages.
-    response = client.chat.completions.create(
-        messages=messages,
-        model=os.getenv("MODEL"), # Sets the model to the model.
-        temperature=0.6,
-        max_completion_tokens=2048, # Sets the maximum completion tokens to 2048.
-        top_p=0.9 # Sets the top p to 0.9.  
-        )
-    print(response.choices[0].message.content)
-    if "Correct!" in response.choices[0].message.content:
+    return response.choices[0].message.content
+
+def ai_trivia(wins): # AI Trivia
+    global messages # Sets the messages to the messages.
+    response = ask_ai()
+    print(response)
+    messages.append({"role": "assistant", "content": response})
+    user_answer = input("Your answer (A, B, C, D): ").strip().upper()
+    messages.append({"role": "user", "content": "User responded with: " + user_answer})
+    response = ask_ai()
+    print(response)
+    messages.append({"role": "assistant", "content": response})
+    messages.append({"role": "assistant", "content": "Ok, I will ask you another question. Don't give it yet, not untill next time I ask you. NEXT QUESTION: "})
+    if "Correct!" in response:
         wins += 1 # Increments the wins.
         if input("Play again? (y/n): ").strip().lower() == "y":
             ai_trivia(wins) # Plays the game again.
         else:
             return wins # Returns the wins to the main block.
-    elif "Incorrect" in response.choices[0].message.content:
+    elif "Incorrect" in response:
         if input("Play again? (y/n): ").strip().lower() == "y":
             ai_trivia(wins) # Plays the game again.
         else:
