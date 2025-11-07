@@ -243,11 +243,11 @@ def tic_tac_toe(wins): # Tic Tac Toe
     possible_positions = [1, 2, 3, 4, 5, 6, 7, 8, 9] # Sets the possible positions to the positions in the tic tac toe board.
     board = [" " for a in range(9)]
     def print_board(board): # Prints the board.
-        print(f"{board[0]} | {board[1]} | {board[2]}")
-        print("--+---+--")
-        print(f"{board[3]} | {board[4]} | {board[5]}") # Prints the second row.
-        print("--+---+--")
-        print(f"{board[6]} | {board[7]} | {board[8]}") # Prints the third row.
+        print(f" {board[0]} | {board[1]} | {board[2]} ")
+        print("---+---+---")
+        print(f" {board[3]} | {board[4]} | {board[5]} ") # Prints the second row.
+        print("---+---+---")
+        print(f" {board[6]} | {board[7]} | {board[8]} ") # Prints the third row.
     def check_winner(board, player): # Checks if the player has won.
         winning_combinations = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8], # Sets the winning combinations to the winning combinations in the tic tac toe board.
@@ -404,34 +404,42 @@ while game_choice != 0: # While the user does not want to quit, the games contin
         games_played += 1 # Increments games played
         wins = high_low_game(wins) # Plays high low game
         print_wins(wins, games_played)
+        game_choice = 100
     elif game_choice == 2: # Levi
         games_played += 1 # Increments games played
         wins = rock_paper_scissors(wins) 
         print_wins(wins, games_played)
+        game_choice = 100
     elif game_choice == 3: # Levi
         games_played += 1 # Increments games played
         wins = blackjack(wins)
         print_wins(wins, games_played)
+        game_choice = 100
     elif game_choice == 4: # Isaac
         games_played += 1
         wins = hang_man(wins) 
         print_wins(wins, games_played)
+        game_choice = 100
     elif game_choice == 5: # Isaac
         games_played += 1 # Increments games played
         wins = slot_machine(wins) 
         print_wins(wins, games_played)
+        game_choice = 100
     elif game_choice == 6: # Isaac
         games_played += 1 # Increments games played
         wins = tic_tac_toe(wins) # Plays tic tac toe
         print_wins(wins, games_played)
+        game_choice = 100
     elif game_choice == 7: # Levi
         games_played += 1 # Increments games played
         wins = dice_game(wins) # Plays dice game
         print_wins(wins, games_played)
+        game_choice = 100
     elif game_choice == 8: # Isaac
         games_played += 1 # Increments games played
         wins = ai_trivia(wins) # Plays AI Trivia
         print_wins(wins, games_played)
+        game_choice = 100
     elif game_choice == 0: # If the user wants to quit, the game ends.
         print("Thanks for playing!") # Prints thank you message
         print_wins(wins, games_played, end_game=True) # Prints wins and the end of the game.
