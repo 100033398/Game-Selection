@@ -176,33 +176,43 @@ def hang_man(wins): # Hangman
     level3 = ["jungle", "castle", "rocket", "throne", "shadow", "silver", "dragon", "pirate", "bridge", "planet", "forest", "wizard", "tunnel", "golden", "hunter"]
     level4 = ["phoenix", "mystery", "crystal", "kingdom", "phantom", "emerald", "journey", "whisper", "lantern", "volcano", "harvest", "ancient", "sphinx", "sorcery", "alchemy"]
     level5 = ["labyrinth", "chrysalis", "paradox", "zephyr", "eclipse", "hieroglyph", "quixotic", "apocalypse", "reverence", "sanctuary", "cataclysm", "enigmatic", "mythology", "transcend", "celestial"] # 15 words each
+    level6 = ["syzygy","floccinaucinihilipilification","xylophilous","sesquipedalian","mnemonic","zeugma","chiaroscurist","pneumonoultramicroscopicsilicovolcanoconiosis","crwth","psittacism","gnomon","schadenfreude","quizzaciously","hippopotomonstrosesquipedaliophobia","triskaidekaphobia"]
 
     while True:
         ahh = False # A boolean to check if the user has chosen a level.
         level = ""
         while not ahh:
-            level = input("Difficulty (1-5): ") # Asks the user for the difficulty of the game.
-            if level == "1":
+            while True:
+                try:
+                    level = int(input("Difficulty (1-5, or 6 for impossible level): ")) # Asks the user for the difficulty of the game.
+                    break
+                except ValueError:
+                    print("Needs to be an integer!")
+            if level == 1:
                 levels = level1 # Sets the levels to the level 1 words.
                 num = random.randint(1,15)
                 break
-            elif level == "2":
+            elif level == 2:
                 levels = level2
                 num = random.randint(1,15)
                 break
-            elif level == "3":
+            elif level == 3:
                 levels = level3
                 num = random.randint(1,15)
                 break
-            elif level == "4":
+            elif level == 4:
                 levels = level4
                 num = random.randint(1,15)
                 break
-            elif level == "5":
+            elif level == 5:
                 levels = level5
                 num = random.randint(1,15)
                 break
-            elif level == "" or level not in ["1","2","3","4","5"]: 
+            elif level == 6:
+                levels = level6
+                num = random.randint(1, 15)
+                break
+            elif level == "" or level not in [1,2,3,4,5,6]: 
                 print("Try again...")
 
         secret_word = levels[num - 1] # Sets the secret word to a random word from the chosen level.
