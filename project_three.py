@@ -374,6 +374,34 @@ def ai_trivia(wins): # AI Trivia
         else:
             return wins # Returns the wins to the main block.
 
+def clock_angle_calculator(): # Calculates the angle between the hour and minute hands of a clock.
+    print("Welcome to the clock angle calculator!")
+    while True:
+        try:
+            hour = int(input("Enter the hour (1-12): ")) # Takes hour
+            if hour < 1 or hour > 12:
+                print("Invalid hour. Please enter a number between 1 and 12.") # Tells user to make sure between 1 - 12
+                continue
+            break
+        except ValueError:
+            print("Invalid input. Please enter a number between 1 and 12.")
+    while True: # Loop for getting minute
+        try:
+            minutes = int(input("Enter the minutes (0-59): "))
+            if minutes < 0 or minutes > 59:
+                print("Invalid minutes. Please enter a number between 0 and 59.")
+                continue
+            break
+        except ValueError:
+            print("Invalid input. Please enter a number between 0 and 59.")
+
+    # MATH
+    hour_angle = (hour % 12 + minutes / 60) * 30
+    minute_angle = minutes * 6
+    angle = abs(hour_angle - minute_angle)
+    angle = min(angle, 360 - angle)
+    return angle
+
 # MAIN BLOCK
 print("Welcome to the choose a challenge game!") # Welcomes the user to the game.
 wins = 0 # Sets the wins to 0.
@@ -397,9 +425,9 @@ messages.append({"role": "system", "content": prompt}) # Adds the system prompt 
 game_choice = 100 # Sets up so while loop runs at least once.
 while game_choice != 0: # While the user does not want to quit, the games continue.
     try: # Try to get the game choice as an integer.
-        game_choice = int(input(" 0) Quit \n 1) High Low Game \n 2) Rock Paper Scissors \n 3) Blackjack \n 4) Hangman \n 5) Slot Machine \n 6) Tic-Tac-Toe \n 7) Dice Game \n 8) AI Trivia \n Choose a game to play (0-8): \n").strip()) # Asks the user for the game they want to play.
+        game_choice = int(input(" 0) Quit \n 1) High Low Game \n 2) Rock Paper Scissors \n 3) Blackjack \n 4) Hangman \n 5) Slot Machine \n 6) Tic-Tac-Toe \n 7) Dice Game \n 8) AI Trivia \n 9) Clock angle calculator (NOT A GAME) \n Choose a game to play (0-9): \n").strip()) # Asks the user for the game they want to play.
     except ValueError:
-        print("Please enter a number between 0 and 8.") # If the user does not enter a valid number, they are told to enter a valid number.
+        print("Please enter a number between 0 and 9.") # If the user does not enter a valid number, they are told to enter a valid number.
     if game_choice == 1: # Levi
         games_played += 1 # Increments games played
         wins = high_low_game(wins) # Plays high low game
@@ -440,11 +468,14 @@ while game_choice != 0: # While the user does not want to quit, the games contin
         wins = ai_trivia(wins) # Plays AI Trivia
         print_wins(wins)
         game_choice = 100
+    elif game_choice == 9: # Joint code
+        clock_angle_calculator() # Plays clock angle calculator
+        game_choice = 100
     elif game_choice == 0: # If the user wants to quit, the game ends.
         print("Thanks for playing!") # Prints thank you message
         print_wins(wins, games_played, end_game=True) # Prints wins and the end of the game.
         break # Breaks out of the loop
     else:
-        print("Invalid choice. Please enter a number between 0 and 8.") # If the user does not enter a valid number, they are told to enter a valid number.
+        print("Invalid choice. Please enter a number between 0 and 9.") # If the user does not enter a valid number, they are told to enter a valid number.
 print("Thanks for playing!") # Prints a thank you message
 print_wins(wins, games_played, end_game=True) # Prints wins and the end of the game.
