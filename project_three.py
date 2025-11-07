@@ -170,66 +170,66 @@ def guess_left(total_guesses, current_guess, secret_word, current_state): # Chec
         print(current_state)
     return current_state, total_guesses
 
-def hang_man(wins): # Hangman   
-  level1 = ["dog", "book", "tree", "fish", "milk", "shoe", "ball", "star", "rain", "fire", "cake", "door", "moon", "sun", "hat"]
-  level2 = ["apple", "river", "house", "light", "grass", "stone", "chair", "plant", "beach", "bread", "music", "clock", "water", "horse", "table",]
-  level3 = ["jungle", "castle", "rocket", "throne", "shadow", "silver", "dragon", "pirate", "bridge", "planet", "forest", "wizard", "tunnel", "golden", "hunter"]
-  level4 = ["phoenix", "mystery", "crystal", "kingdom", "phantom", "emerald", "journey", "whisper", "lantern", "volcano", "harvest", "ancient", "sphinx", "sorcery", "alchemy"]
-  level5 = ["labyrinth", "chrysalis", "paradox", "zephyr", "eclipse", "hieroglyph", "quixotic", "apocalypse", "reverence", "sanctuary", "cataclysm", "enigmatic", "mythology", "transcend", "celestial"] # 15 words each
+def hang_man(wins): # Hangman  
+    level1 = ["dog", "book", "tree", "fish", "milk", "shoe", "ball", "star", "rain", "fire", "cake", "door", "moon", "sun", "hat"]
+    level2 = ["apple", "river", "house", "light", "grass", "stone", "chair", "plant", "beach", "bread", "music", "clock", "water", "horse", "table",]
+    level3 = ["jungle", "castle", "rocket", "throne", "shadow", "silver", "dragon", "pirate", "bridge", "planet", "forest", "wizard", "tunnel", "golden", "hunter"]
+    level4 = ["phoenix", "mystery", "crystal", "kingdom", "phantom", "emerald", "journey", "whisper", "lantern", "volcano", "harvest", "ancient", "sphinx", "sorcery", "alchemy"]
+    level5 = ["labyrinth", "chrysalis", "paradox", "zephyr", "eclipse", "hieroglyph", "quixotic", "apocalypse", "reverence", "sanctuary", "cataclysm", "enigmatic", "mythology", "transcend", "celestial"] # 15 words each
 
-  while True:
-    ahh = False # A boolean to check if the user has chosen a level.
-    level = ""
-    while not ahh:
-      level = input("Difficulty (1-5): ")
-      level = input("Difficulty (1-5): ") # Asks the user for the difficulty of the game.
-      if level == "1":
-        levels = level1 # Sets the levels to the level 1 words.
-        num = random.randint(1,15)
-        break
-      elif level == "2":
-        levels = level2
-        num = random.randint(1,15)
-        break
-      elif level == "3":
-        levels = level3
-        num = random.randint(1,15)
-        break
-      elif level == "4":
-        levels = level4
-        num = random.randint(1,15)
-        break
-      elif level == "5":
-        levels = level5
-        num = random.randint(1,15)
-        break
-      elif level == "" or level not in ["1","2","3","4","5"]: 
-        print("Try again...")
+    while True:
+        ahh = False # A boolean to check if the user has chosen a level.
+        level = ""
+        while not ahh:
+            level = input("Difficulty (1-5): ") # Asks the user for the difficulty of the game.
+            if level == "1":
+                levels = level1 # Sets the levels to the level 1 words.
+                num = random.randint(1,15)
+                break
+            elif level == "2":
+                levels = level2
+                num = random.randint(1,15)
+                break
+            elif level == "3":
+                levels = level3
+                num = random.randint(1,15)
+                break
+            elif level == "4":
+                levels = level4
+                num = random.randint(1,15)
+                break
+            elif level == "5":
+                levels = level5
+                num = random.randint(1,15)
+                break
+            elif level == "" or level not in ["1","2","3","4","5"]: 
+                print("Try again...")
 
-    secret_word = levels[num - 1] # Sets the secret word to a random word from the chosen level.
-    total_guesses = 10 # Sets the total guesses to 10.
-    print("-" * 10) # Prints a line of dashes.
-    print(f"{total_guesses} incorrect guesses left") # Prints the number of incorrect guesses left.
-    print("_" * len(secret_word)) # Prints the number of underscores equal to the length of the secret word.
-    current_state = "_" * len(secret_word) # Sets the current state to the number of underscores equal to the length of the secret word.
-    while "_" in current_state and total_guesses > 0:
-      current_guess = input("What letter do you want to guess? \n") # Asks the user for a letter to guess.
-      current_state, total_guesses = guess_left(total_guesses, current_guess, secret_word, current_state) # Checks if the user has guessed the word.
-    if total_guesses > 0 and current_state.lower() == secret_word.lower():
-      print(f"Correct, the word was {secret_word}, good job!") # If the user has guessed the word, they win.
-      wins += 1 # Increments the wins.
-      return wins
-    else: 
-      print(f"The word was: {secret_word}")
-      break
+        secret_word = levels[num - 1] # Sets the secret word to a random word from the chosen level.
+        total_guesses = 10 # Sets the total guesses to 10.
+        print("-" * 10) # Prints a line of dashes.
+        print(f"{total_guesses} incorrect guesses left") # Prints the number of incorrect guesses left.
+        print("_" * len(secret_word)) # Prints the number of underscores equal to the length of the secret word.
+        current_state = "_" * len(secret_word) # Sets the current state to the number of underscores equal to the length of the secret word.
+        while "_" in current_state and total_guesses > 0:
+            current_guess = input("What letter do you want to guess? \n") # Asks the user for a letter to guess.
+            current_state, total_guesses = guess_left(total_guesses, current_guess, secret_word, current_state) # Checks if the user has guessed the word.
+        if total_guesses > 0 and current_state.lower() == secret_word.lower():
+            print(f"Correct, the word was {secret_word}, good job!") # If the user has guessed the word, they win.
+            wins += 1 # Increments the wins.
+            return wins
+        else: 
+            print(f"The word was: {secret_word}")
+            break
 
 def print_wins(wins, games_played=0, end_game=False):
-    print(f"You have {wins} wins!") # Prints the number of wins.
     if end_game:
         try:
           print("You played a total of", games_played, "games. You won", wins, "games. That is a", (wins/games_played)*100, "% win rate. Goodbye!") # Prints the number of games played and the win rate.
         except ZeroDivisionError:
           print("You played 0 games. Goodbye!") # If the user has played 0 games, they are told to play more games.
+    else:
+        print(f"You have {wins} wins!") # Prints the number of wins.
 
 def slot_machine(wins): # Slot machine
     symbols = ["Cherry", "Lemon", "Orange", "Plum", "Bell", "Bar", "Seven"] # Sets the symbols to the symbols in the slot machine.
@@ -473,9 +473,7 @@ while game_choice != 0: # While the user does not want to quit, the games contin
         game_choice = 100
     elif game_choice == 0: # If the user wants to quit, the game ends.
         print("Thanks for playing!") # Prints thank you message
-        print_wins(wins, games_played, end_game=True) # Prints wins and the end of the game.
         break # Breaks out of the loop
     else:
         print("Invalid choice. Please enter a number between 0 and 9.") # If the user does not enter a valid number, they are told to enter a valid number.
-print("Thanks for playing!") # Prints a thank you message
 print_wins(wins, games_played, end_game=True) # Prints wins and the end of the game.
