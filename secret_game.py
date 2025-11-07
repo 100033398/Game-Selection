@@ -1,4 +1,4 @@
-def play_secret_game(wins):
+def play_secret_game():
     import sys, os, random
 
     try:
@@ -293,8 +293,6 @@ def play_secret_game(wins):
             pygame.display.flip()
             pygame.time.wait(3000)
             running = False
-        else:
-            wins += 1
         for event in pygame.event.get(): # Used to get the events from the pygame, for example, the mouse button down to click on the squares, or escape to quit the game
             if event.type == pygame.QUIT:
                 running = False
@@ -348,5 +346,4 @@ def play_secret_game(wins):
             pygame.time.wait(3000)
             running = False
     pygame.quit() # This is the end of the game, and the pygame window will close
-    return wins
     sys.exit(1) # This is the end of the game, and the program will close
