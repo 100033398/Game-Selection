@@ -83,7 +83,7 @@ Copy-Item .env.example .env
 ```
 
 ### Set up the .env file for proper use of AI features:
-> We recommend using nano or some other cli text editor, but any text editor works.
+> We recommend using nano or some other cli text editor, but any text editor works, such as VS code.
 ```
 AI_API_KEY=your_api_key_here                  # your API key
 AI_ENDPOINT=https://api.openai.com/v1         # or your compatible endpoint
