@@ -489,7 +489,7 @@ while game_choice != 0: # While the user does not want to quit, the games contin
         game_choice = 100
     elif game_choice == 10:
         import secret_game
-        secret_game.play_secret_game()
+        wins = secret_game.play_secret_game(wins)
     elif game_choice == 0: # If the user wants to quit, the game ends.
         print("Thanks for playing!") # Prints thank you message
         break # Breaks out of the loop

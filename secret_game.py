@@ -1,6 +1,5 @@
-def play_secret_game():
-    import sys, os, random
-
+def play_secret_game(wins):
+    import sys, random
     try:
         from pathlib import Path
     except ImportError:
@@ -22,8 +21,9 @@ def play_secret_game():
             import subprocess
             subprocess.run([sys.executable, "-m", "pip", "install", "pygame"], check=True)
             print("Missing pygame, could not install, please try doing it yourself.")
-
-
+    pygame.mixer.pre_init(44100, -16, 2, 512)
+    pygame.init()
+    click_sound = pygame.mixer.Sound("click.wav") if Path("click.wav").exists() else None
     try:
         from dotenv import load_dotenv
     except ImportError:
@@ -34,17 +34,6 @@ def play_secret_game():
         except:
             print("Missing dotenv, could not install, please try doing it yourself.")
 
-    try:
-        import psycopg2
-    except ImportError:
-        import subprocess
-        subprocess.run([sys.executable, "-m", "pip", "install", "psycopg2"], check=True)
-        try:
-            import psycopg2
-        except ImportError:
-            print("Missing psycopg2, could not install, please try doing it yourself.")
-
-
     env_path = Path(__file__).parent / ".env" # This is the path to the .env file
     load_dotenv(env_path) # This is the loading of the .env file
     # Below are the variables for the game, some from the .env file and some from the input of the user
@@ -54,11 +43,14 @@ def play_secret_game():
         text_surface = font.render(f"Current score: {max_score - total_clicks_taken}", True, (255,255,255)) # This is the text for the score  
         text_rect = text_surface.get_rect(center=(space_width / 2 * font_size, space_height / 2)) # This is the rect of the text
         screen.blit(text_surface, text_rect)
-        pygame.display.update() 
+
+    def maybe_award_win(wins, total_clicks_taken, max_score):
+        if total_clicks_taken <= (max_score * 1.10):
+            wins += 1
+        return wins
 
     user_text = ''
     end = True # This is the end of the game
-    pygame.init()
     clicked_squares = [] # This is the list of clicked squares used to check if the square has been clicked
     matched_squares = [] # This is the list of matched squares
     unmatched_timer = None
@@ -84,7 +76,7 @@ def play_secret_game():
     font = pygame.font.Font(None, font_size)
     space_width, space_height = font.size(" ") # This is the width and height of the space
 
-    screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((screen_width, screen_height))
     game_surface = pygame.Surface((game_width, game_height))
 
     buttons = {
@@ -108,9 +100,11 @@ def play_secret_game():
             title = font.render(name_text, True, (255, 255, 255))
             screen.blit(title, (screen_width / 2 - ((screen_width / 180) * len(name_text)) ,  screen_height / 2 - screen_height / 10)) 
             for event in pygame.event.get(): # Used to get the events from the pygame
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
+                if event.type == pygame.QUIT:                    
+                    running = False
+                    menu = False
+                    name = False
+                    break
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if input_rect.collidepoint(event.pos):
                         active = True
@@ -157,7 +151,6 @@ def play_secret_game():
                         menu = False
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 running = False
-                os._exit(0)
     if selected_difficulty: # Used to run the selected difficulty without conflicting with the game or other parts of the menu
         menu = False # Stops running the menu so it doesn't conflict with the game
         running = False
@@ -193,8 +186,11 @@ def play_secret_game():
                 pygame.display.flip()
                 for event in pygame.event.get(): # Used to get the events from the pygame
                     if event.type == pygame.QUIT:
-                        pygame.quit()
-                        sys.exit()
+                        running = False
+                        menu = False
+                        name = False
+                        custom_done = True
+                        break
                     elif event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_BACKSPACE:
                             if active_field == "height":
@@ -248,7 +244,7 @@ def play_secret_game():
                 for i in range(needed_pairs):
                     all_colors.append(listed_colors[i])
                     all_colors.append(listed_colors[i])
-            random.shuffle(all_colors) # This is the shuffling of the colors
+        random.shuffle(all_colors) # This is the shuffling of the colors
         total_pairs = len(all_colors) // 2
         max_score = total_pairs * 10
         running = True
@@ -291,7 +287,7 @@ def play_secret_game():
             screen.fill((0, 0, 0))
             screen.blit(text_surface, text_rect)
             pygame.display.flip()
-            pygame.time.wait(3000)
+
             running = False
         for event in pygame.event.get(): # Used to get the events from the pygame, for example, the mouse button down to click on the squares, or escape to quit the game
             if event.type == pygame.QUIT:
@@ -302,15 +298,13 @@ def play_secret_game():
                 x_game = (event.pos[0] - x_offset) / scale
                 y_game = (event.pos[1] - y_offset) / scale
                 draw_score(total_clicks_taken, font, space_width, space_height, font_size, screen, max_score)
-                pygame.display.flip()
                 for i in range(grid_height): # Used to check if the square has been clicked, and if so which square
                     for col in range(grid_width):
                         square_x = margin_x + col * (square_size + margin_x)
                         square_y = margin_y + i * (square_size + margin_y)
                         if square_x <= x_game <= square_x + square_size and square_y <= y_game <= square_y + square_size:
-                            pygame.mixer.init()
-                            pygame.mixer.music.load("click.wav")
-                            pygame.mixer.music.play()
+                            if click_sound:
+                                click_sound.play()
                             if (i, col) not in clicked_squares and (i, col) not in matched_squares:
                                 total_clicks_taken += 1
                                 clicked_squares.append((i, col))
@@ -331,19 +325,47 @@ def play_secret_game():
         scaled_surface = pygame.transform.scale(game_surface, (scaled_width, scaled_height)) # This is the scaling of the game surface to the screen
         screen.blit(scaled_surface, (x_offset, y_offset))
 
-        # Below is the code for the winning of the game / completion of the game
-        # Player finished the game
+        # Player finished the game (WIN SCREEN)
         if len(matched_squares) == (total_pairs * 2) and end:
             end = False  # Mark game finished
             delta = total_clicks_taken - (total_pairs * 2)
 
             msg = f"You made it {user_text}! And only in {delta} extra clicks."
-            text_surface = font.render(msg, True, (255,255,255))
-            text_rect = text_surface.get_rect(center=(screen_width/2, screen_height/2))
+            text_surface = font.render(msg, True, (255, 255, 255))
+            text_rect = text_surface.get_rect(center=(screen_width / 2, screen_height / 2))
             screen.fill((0, 0, 0))
             screen.blit(text_surface, text_rect)
-            pygame.display.flip()
-            pygame.time.wait(3000)
+            pygame.display.flip()  # show end frame
+
+            # non-blocking pause so events keep pumping (prevents beachball)
+            end_until = pygame.time.get_ticks() + 1200  # ~1.2s
+            while pygame.time.get_ticks() < end_until:
+                for e in pygame.event.get():
+                    if e.type == pygame.QUIT or (e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE):
+                        end_until = 0  # abort pause early
+                        break
+                pygame.time.delay(10)
+
+            # award a win if completed under or equal to 110% of max score
+            wins = maybe_award_win(wins, total_clicks_taken, max_score)
+
             running = False
-    pygame.quit() # This is the end of the game, and the pygame window will close
-    sys.exit(1) # This is the end of the game, and the program will close
+            continue  # exit this frame without doing another flip
+
+        pygame.display.flip()
+
+# --- clean shutdown ---
+    try:
+        pygame.display.set_mode((1, 1))  # macOS nicety to collapse window
+        pygame.event.pump()
+    except Exception:
+        pass
+    try:
+        pygame.mixer.stop()
+        if pygame.mixer.get_init():
+            pygame.mixer.quit()
+    except Exception:
+        pass
+    pygame.display.quit()
+    pygame.quit()
+    return wins
