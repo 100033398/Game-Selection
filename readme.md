@@ -28,7 +28,7 @@ Requirements:
 	• OpenAI compatible API key, endpoint and model (MUST BE OPENAI library compatible!)
 
 ### Get the repo using git:
-> Make sure git is installed
+> Make sure git is installed if you want to use it
 
 Using ```git clone```:
 ```
