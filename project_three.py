@@ -212,7 +212,7 @@ def hang_man(wins): # Hangman
                 levels = level6
                 num = random.randint(1, 15)
                 break
-            elif level == "" or level not in [1,2,3,4,5,6]: 
+            else:
                 print("Try again...")
 
         secret_word = levels[num - 1] # Sets the secret word to a random word from the chosen level.
