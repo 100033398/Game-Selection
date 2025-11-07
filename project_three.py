@@ -400,7 +400,7 @@ def clock_angle_calculator(): # Calculates the angle between the hour and minute
     minute_angle = minutes * 6
     angle = abs(hour_angle - minute_angle)
     angle = min(angle, 360 - angle)
-    return angle
+    print(f"The angle between the hour and minute hands is {angle} degrees.")
 
 # MAIN BLOCK
 print("Welcome to the choose a challenge game!") # Welcomes the user to the game.
