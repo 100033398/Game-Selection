@@ -219,7 +219,7 @@ def hang_man(wins): # Hangman
       print(f"The word was: {secret_word}")
       break
 
-def print_wins(wins, games_played, end_game=False):
+def print_wins(wins, games_played=0, end_game=False):
     print(f"You have {wins} wins!") # Prints the number of wins.
     if end_game:
         try:
@@ -403,42 +403,42 @@ while game_choice != 0: # While the user does not want to quit, the games contin
     if game_choice == 1: # Levi
         games_played += 1 # Increments games played
         wins = high_low_game(wins) # Plays high low game
-        print_wins(wins, games_played)
+        print_wins(wins)
         game_choice = 100
     elif game_choice == 2: # Levi
         games_played += 1 # Increments games played
         wins = rock_paper_scissors(wins) 
-        print_wins(wins, games_played)
+        print_wins(wins)
         game_choice = 100
     elif game_choice == 3: # Levi
         games_played += 1 # Increments games played
         wins = blackjack(wins)
-        print_wins(wins, games_played)
+        print_wins(wins)
         game_choice = 100
     elif game_choice == 4: # Isaac
         games_played += 1
         wins = hang_man(wins) 
-        print_wins(wins, games_played)
+        print_wins(wins)
         game_choice = 100
     elif game_choice == 5: # Isaac
         games_played += 1 # Increments games played
         wins = slot_machine(wins) 
-        print_wins(wins, games_played)
+        print_wins(wins)
         game_choice = 100
     elif game_choice == 6: # Isaac
         games_played += 1 # Increments games played
         wins = tic_tac_toe(wins) # Plays tic tac toe
-        print_wins(wins, games_played)
+        print_wins(wins)
         game_choice = 100
     elif game_choice == 7: # Levi
         games_played += 1 # Increments games played
         wins = dice_game(wins) # Plays dice game
-        print_wins(wins, games_played)
+        print_wins(wins)
         game_choice = 100
     elif game_choice == 8: # Isaac
         games_played += 1 # Increments games played
         wins = ai_trivia(wins) # Plays AI Trivia
-        print_wins(wins, games_played)
+        print_wins(wins)
         game_choice = 100
     elif game_choice == 0: # If the user wants to quit, the game ends.
         print("Thanks for playing!") # Prints thank you message
