@@ -4,6 +4,7 @@ import random
 from openai import OpenAI
 from dotenv import load_dotenv
 messages = []
+allow_secret = False
 load_dotenv()
 
 def user_guesses(wins): # User guesses the number
@@ -233,6 +234,29 @@ def hang_man(wins): # Hangman
             break
 
 def print_wins(wins, games_played=0, end_game=False):
+    global allow_secret
+    if wins == 7 and not end_game and games_played <= 10:
+        choice_for_riddle = input("Do you want a riddle for a secret game? \n").lower().strip()
+        if choice_for_riddle in ["y","yes","yep", "course"]:
+            print("Disclamer: Riddle was made using the help of AI.")
+            print( # AI MADE RIDDLE
+                """
+                In a grid where screen math reigns and y shrinks to rise,
+                do y -= 1 twice to touch the sky,
+                then y += 1 twice to fall in kind.
+
+                Along the x-axis, toggle like a metronome:
+                x -= 1, then x += 1, and repeat that pair once more.
+
+                Next, press the initials of two built-ins
+                the truth type, then the magnitude function
+                and finally pass the __name__ == "__main__" gate.
+                """
+            )
+            print("Put that into the game selection menu, instead of a digit, seperate each word by only a space. I believe in you! \n")
+            allow_secret = True
+        else:
+            print("Your choice then")
     if end_game:
         try:
           print("You played a total of", games_played, "games. You won", wins, "games. That is a", (wins/games_played)*100, "% win rate. Goodbye!") # Prints the number of games played and the win rate.
@@ -450,49 +474,51 @@ while game_choice != 0: # While the user does not want to quit, the games contin
     if game_choice == 1: # Levi
         games_played += 1 # Increments games played
         wins = high_low_game(wins) # Plays high low game
-        print_wins(wins)
+        print_wins(wins, games_played)
         game_choice = 100
     elif game_choice == 2: # Levi
         games_played += 1 # Increments games played
         wins = rock_paper_scissors(wins) 
-        print_wins(wins)
+        print_wins(wins, games_played)
         game_choice = 100
     elif game_choice == 3: # Levi
         games_played += 1 # Increments games played
         wins = blackjack(wins)
-        print_wins(wins)
+        print_wins(wins, games_played)
         game_choice = 100
     elif game_choice == 4: # Isaac
         games_played += 1
         wins = hang_man(wins) 
-        print_wins(wins)
+        print_wins(wins, games_played)
         game_choice = 100
     elif game_choice == 5: # Isaac
         games_played += 1 # Increments games played
         wins = slot_machine(wins) 
-        print_wins(wins)
+        print_wins(wins, games_played)
         game_choice = 100
     elif game_choice == 6: # Isaac
         games_played += 1 # Increments games played
         wins = tic_tac_toe(wins) # Plays tic-tac-toe
-        print_wins(wins)
+        print_wins(wins, games_played)
         game_choice = 100
     elif game_choice == 7: # Levi
         games_played += 1 # Increments games played
         wins = dice_game(wins) # Plays dice game
-        print_wins(wins)
+        print_wins(wins, games_played)
         game_choice = 100
     elif game_choice == 8: # Isaac
         games_played += 1 # Increments games played
         wins = ai_trivia(wins) # Plays AI Trivia
-        print_wins(wins)
+        print_wins(wins, games_played)
         game_choice = 100
     elif game_choice == 9: # Joint code
         clock_angle_calculator() # Plays clock angle calculator
         game_choice = 100
-    elif game_choice.lower() == "up up down down left right left right b a start":
+    elif game_choice.lower() == "up up down down left right left right b a start" and allow_secret:
         import secret_game
+        games_played += 1
         wins = secret_game.play_secret_game(wins)
+        print_wins(wins, games_played)
     elif game_choice == 0: # If the user wants to quit, the game ends.
         print("Thanks for playing!") # Prints thank you message
         break # Breaks out of the loop
