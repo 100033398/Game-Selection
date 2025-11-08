@@ -470,7 +470,6 @@ messages.append({"role": "system", "content": prompt}) # Adds the system prompt 
 game_choice = 100 # Sets up so while loop runs at least once.
 while game_choice != 0: # While the user does not want to quit, the games continue.
     game_choice = input(" 0) Quit \n 1) High Low Game \n 2) Rock Paper Scissors \n 3) Blackjack \n 4) Hangman \n 5) Slot Machine \n 6) Tic-Tac-Toe \n 7) Dice Game \n 8) AI Trivia \n 9) Clock angle calculator (NOT A GAME) \n Choose a game to play (0-9): \n").strip() # Asks the user for the game they want to play.
-    print(game_choice.lower())
     if not game_choice.lower() == "up up down down left right left right b a start": # Konami code
         try: # Try to get the game choice as an integer.
             game_choice = int(game_choice)
