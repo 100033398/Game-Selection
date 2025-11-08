@@ -373,8 +373,8 @@ def ask_ai():
     except ImportError:
         print("OpenAI library is not installed. Trivia game cannot be played.")
         return None
-    api_key = os.getenv("AI_API_KEY")
-    if api_key is None:
+    ai_key = os.getenv("AI_API_KEY")
+    if ai_key is None:
         print("AI_API_KEY environment variable not set.")
         return None
     client = OpenAI(
