@@ -69,13 +69,19 @@ def computer_guesses(wins): # Computer guesses the number
             return wins # Returns the wins to the main block.
 
 def high_low_game(wins): # High/Low game
-  choice_high_low = input("What would you like to play (Computer guesses (1) or You guess the number (2)): \n").lower().strip()
-  if choice_high_low == "1": # If the user chooses to play the computer guesses the number.
-    wins = computer_guesses(wins)
-    return wins
-  elif choice_high_low == "2": # If the user chooses to play the user guesses the number.
-    wins = user_guesses(wins)
-    return wins
+    try:
+        choice_high_low = int(input("What would you like to play (Computer guesses (1) or You guess the number (2)): \n").lower().strip())
+    except ValueError:
+        print("I need an integer please")
+    while True:
+        if choice_high_low == 1: # If the user chooses to play the computer guesses the number.
+            wins = computer_guesses(wins)
+            return wins
+        elif choice_high_low == 2: # If the user chooses to play the user guesses the number.
+            wins = user_guesses(wins)
+            return wins
+        else:
+            print("Try again, 1 or 2")
 
 def rock_paper_scissors(wins): # Rock, Paper, Scissors
     print("Welcome to Rock, Paper, Scissors!") # Welcomes the user to the game.
