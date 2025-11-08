@@ -53,8 +53,8 @@ def computer_guesses(wins): # Computer guesses the number
         response = input("Is your number higher, lower, or correct? \n").lower().strip()
         if response in ("c", "correct", "y", "yes"):
             print(f"YAY! I guessed your number in {guesses} guesses! \n")
-            if guesses <= 7:
-                wins += 1 # If the computer guessed the number in 7 or less guesses, they gain a win.
+            if guesses >= 7:
+                wins += 1 # If the computer guessed the number in 7 or more guesses, they gain a win.
                 return wins
             return wins
         elif response in ("h", "higher"):
