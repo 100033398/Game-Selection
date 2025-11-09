@@ -3,7 +3,13 @@ import os
 import random
 from openai import OpenAI
 from dotenv import load_dotenv
-load_dotenv()
+
+path_to_env = "" # PATH TO ENV (LEAVE BLANK FOR CURRENT FOLDER)
+
+if not path_to_env:
+    load_dotenv() # Loads the .env file
+else:
+    load_dotenv(path_to_env) # Loads the .env file from the path
 
 def user_guesses(wins): # User guesses the number
     guesses = 0
