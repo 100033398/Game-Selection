@@ -76,7 +76,7 @@ def play_secret_game(wins):
     font = pygame.font.Font(None, font_size)
     space_width, space_height = font.size(" ") # This is the width and height of the space
 
-    screen = pygame.display.set_mode((screen_width, screen_height))
+    screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
     game_surface = pygame.Surface((game_width, game_height))
 
     buttons = {
