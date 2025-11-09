@@ -3,8 +3,6 @@ import os
 import random
 from openai import OpenAI
 from dotenv import load_dotenv
-messages = []
-allow_secret = False
 load_dotenv()
 
 def user_guesses(wins): # User guesses the number
@@ -70,7 +68,7 @@ def computer_guesses(wins): # Computer guesses the number
 
 def high_low_game(wins): # High/Low game
     try:
-        choice_high_low = int(input("What would you like to play (Computer guesses (1) or You guess the number (2)): \n").lower().strip())
+        choice_high_low = int(input("What would you like to play (Computer guesses (1) or You guess the number (2)): \n").strip())
     except ValueError:
         print("I need an integer please")
     while True:
@@ -402,7 +400,7 @@ def ai_trivia(wins): # AI Trivia
     messages.append({"role": "user", "content": "User responded with: " + user_answer})
     response = ask_ai()
     if not response:
-        print("AI not configured; skipping AI Trivia.")
+        print("AI not configured, skipping AI Trivia.")
         return wins
     print(response)
     messages.append({"role": "assistant", "content": response})
@@ -450,6 +448,7 @@ def clock_angle_calculator(): # Calculates the angle between the hour and minute
 # MAIN BLOCK
 print("Welcome to the choose a challenge game!") # Welcomes the user to the game.
 wins = 0 # Sets the wins to 0.
+allow_secret = False # Blocks secret allowing
 games_played = 0 # Sets the games played to 0.
 messages = [] # Sets the messages to the messages.
 prompt = """
