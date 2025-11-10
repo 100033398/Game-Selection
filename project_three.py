@@ -245,7 +245,7 @@ def hang_man(wins): # Hangman
 
 def print_wins(wins, games_played=0, end_game=False):
     global allow_secret
-    if wins == 7 and not end_game and games_played <= 10:
+    if wins == 8 and not end_game and games_played <= 12: # 75% win rate
         choice_for_riddle = input("Do you want a riddle for a secret game? \n").lower().strip()
         if choice_for_riddle in ["y","yes","yep", "course"]:
             print("Disclamer: Riddle was made using the help of AI.")
