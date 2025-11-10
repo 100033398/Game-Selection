@@ -345,7 +345,7 @@ def tic_tac_toe(wins): # Tic-Tac-Toe
 def dice_game(wins): # Dice Game
     try:
         number_dice_chosen = int(input("Please choose the number of dice up to 5 \n")) # Asks the user for the number of dice they want to roll.
-        if number_dice_chosen > 1:
+        if number_dice_chosen > 5:
             raise ValueError # If the user chooses more than 5 dice, they are told to choose less.
     except ValueError:
         print("Please enter a number between 1 and 5.") # If the user chooses less than 1 dice, they are told to choose more.
