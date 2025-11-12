@@ -389,7 +389,7 @@ def ask_ai():
         messages=messages,
         model=os.getenv("MODEL"), # Sets the model to the model.
         temperature=0.6,
-        max_completion_tokens=2048, # Sets the maximum completion tokens to 2048.
+        max_completion_tokens=4096, # Sets the maximum completion tokens to 2048.
         top_p=0.9 # Sets the top p to 0.9.
         )
     return response.choices[0].message.content
