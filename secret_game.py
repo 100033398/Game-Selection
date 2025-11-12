@@ -1,4 +1,5 @@
 def play_secret_game(wins):
+    """Run the color matching memory mini-game and return updated win count."""
     import sys, random
     try:
         from pathlib import Path
@@ -21,8 +22,10 @@ def play_secret_game(wins):
             import subprocess
             subprocess.run([sys.executable, "-m", "pip", "install", "pygame"], check=True)
             print("Missing pygame, could not install, please try doing it yourself.")
+    # Pre-load the mixer before initializing pygame so sounds play without delay
     pygame.mixer.pre_init(44100, -16, 2, 512)
     pygame.init()
+    # Optional click sound feedback when the player presses a square
     click_sound = pygame.mixer.Sound("click.wav") if Path("click.wav").exists() else None
     try:
         from dotenv import load_dotenv
@@ -40,11 +43,13 @@ def play_secret_game(wins):
     total_clicks_taken = 0
 
     def draw_score(total_clicks_taken, font, space_width, space_height, font_size, screen, max_score):
+        # Draw the remaining score budget so the player knows how they are doing
         text_surface = font.render(f"Current score: {max_score - total_clicks_taken}", True, (255,255,255)) # This is the text for the score  
         text_rect = text_surface.get_rect(center=(space_width / 2 * font_size, space_height / 2)) # This is the rect of the text
         screen.blit(text_surface, text_rect)
 
     def maybe_award_win(wins, total_clicks_taken, max_score):
+        # Only award a win if the player used 110% or less of the optimal clicks
         if total_clicks_taken <= (max_score * 1.10):
             wins += 1
         return wins
@@ -274,6 +279,7 @@ def play_secret_game(wins):
 
     while running: # Starts the actual part of the game
         now = pygame.time.get_ticks()
+        # Turn unmatched squares back over after a short delay so the player can try again
         if unmatched_timer and now - unmatched_timer > 500:
             clicked_squares.clear() # This is the list of clicked squares
             unmatched_timer = None                                     
@@ -289,6 +295,7 @@ def play_secret_game(wins):
             pygame.display.flip()
 
             running = False
+        # Handle player input (quitting, selecting squares, etc.)
         for event in pygame.event.get(): # Used to get the events from the pygame, for example, the mouse button down to click on the squares, or escape to quit the game
             if event.type == pygame.QUIT:
                 running = False
@@ -324,19 +331,16 @@ def play_secret_game(wins):
         screen.fill("black")
         scaled_surface = pygame.transform.scale(game_surface, (scaled_width, scaled_height)) # This is the scaling of the game surface to the screen
         screen.blit(scaled_surface, (x_offset, y_offset))
-
         # Player finished the game (WIN SCREEN)
         if len(matched_squares) == (total_pairs * 2) and end:
             end = False  # Mark game finished
             delta = total_clicks_taken - (total_pairs * 2)
-
             msg = f"You made it {user_text}! And only in {delta} extra clicks."
             text_surface = font.render(msg, True, (255, 255, 255))
             text_rect = text_surface.get_rect(center=(screen_width / 2, screen_height / 2))
             screen.fill((0, 0, 0))
             screen.blit(text_surface, text_rect)
             pygame.display.flip()  # show end frame
-
             # non-blocking pause so events keep pumping (prevents beachball)
             end_until = pygame.time.get_ticks() + 1200  # ~1.2s
             while pygame.time.get_ticks() < end_until:
@@ -345,18 +349,14 @@ def play_secret_game(wins):
                         end_until = 0  # abort pause early
                         break
                 pygame.time.delay(10)
-
             # award a win if completed under or equal to 110% of max score
             wins = maybe_award_win(wins, total_clicks_taken, max_score)
 
             running = False
             continue  # exit this frame without doing another flip
-
         pygame.display.flip()
-
-# --- clean shutdown ---
     try:
-        pygame.display.set_mode((1, 1))  # macOS nicety to collapse window
+        pygame.display.set_mode((1, 1)) 
         pygame.event.pump()
     except Exception:
         pass
