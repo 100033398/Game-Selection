@@ -33,6 +33,7 @@ Requirements:
 
 Using ```git clone```:
 > Make sure git is installed if you want to use it
+
 > If you don't have Git, [the installation instructions are here](https://github.com/git-guides/install-git).
 ```
 git clone https://github.com/100033398/Game-Selection.git
