@@ -30,10 +30,10 @@ Requirements:
 	• OpenAI compatible API key, endpoint and model (MUST BE OPENAI library compatible!)
 
 ### Get the repo using git:
-> Make sure git is installed if you want to use it
 
 Using ```git clone```:
-> If you don't have Git, [installation instructions here](https://github.com/git-guides/install-git).
+> Make sure git is installed if you want to use it
+> If you don't have Git, [the installation instructions are here](https://github.com/git-guides/install-git).
 ```
 git clone https://github.com/100033398/Game-Selection.git
 cd Game-Selection
