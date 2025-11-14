@@ -476,54 +476,59 @@ messages.append({"role": "system", "content": sys_prompt}) # Adds the system pro
 game_choice = 100 # Sets up so while loop runs at least once.
 while game_choice != 0: # While the user does not want to quit, the games continue.
     game_choice = input(" 0) Quit \n 1) High Low Game \n 2) Rock Paper Scissors \n 3) Blackjack \n 4) Hangman \n 5) Slot Machine \n 6) Tic-Tac-Toe \n 7) Dice Game \n 8) AI Trivia \n 9) Clock angle calculator (NOT A GAME) \n Choose a game to play (0-9): \n").strip() # Asks the user for the game they want to play.
-    if game_choice.lower().replace(" ", "") in game_choice:
-        pass
-    elif not game_choice.lower() == "up up down down left right left right b a start": # Konami code
-        try: # Try to get the game choice as an integer.
-            game_choice = int(game_choice)
-        except ValueError:
-            print("Please enter a number between 0 and 9.") # If the user does not enter a valid number, they are told to enter a valid number.
-    if game_choice == 1 or game_choice.lower().replace(" ", "") == "highlowgame": # Levi
+    try:
+        game_choice = int(game_choice)
+    except:
+        game_choice = game_choice.lower().replace(" ", "")
+        if game_choice.lower() != "up up down down left right left right b a start": # Konami code
+            try: # Try to get the game choice as an integer.
+                game_choice = int(game_choice)
+            except ValueError:
+                print("Please enter a number between 0 and 9.") # If the user does not enter a valid number, they are told to enter a valid number.
+    if game_choice == 0 or game_choice == "exit": # If the user wants to quit, the game ends.
+        print("Thanks for playing!") # Prints thank you message
+        break # Breaks out of the loop
+    elif game_choice == 1 or game_choice == "highlowgame": # Levi
         games_played += 1 # Increments games played
         wins = high_low_game(wins) # Plays high low game
         print_wins(wins, games_played)
         game_choice = 100
-    elif game_choice == 2 or game_choice.lower().replace(" ", "") == "rockpaperscissors": # Levi
+    elif game_choice == 2 or game_choice == "rockpaperscissors": # Levi
         games_played += 1 # Increments games played
         wins = rock_paper_scissors(wins) 
         print_wins(wins, games_played)
         game_choice = 100
-    elif game_choice == 3 or game_choice.lower().replace(" ", "") == "blackjack": # Levi
+    elif game_choice == 3 or game_choice == "blackjack": # Levi
         games_played += 1 # Increments games played
         wins = blackjack(wins)
         print_wins(wins, games_played)
         game_choice = 100
-    elif game_choice == 4 or game_choice.lower().replace(" ", "") == "hangman": # Isaac
+    elif game_choice == 4 or game_choice == "hangman": # Isaac
         games_played += 1
         wins = hang_man(wins) 
         print_wins(wins, games_played)
         game_choice = 100
-    elif game_choice == 5 or game_choice.lower().replace(" ", "") == "slotmachine": # Isaac
+    elif game_choice == 5 or game_choice == "slotmachine": # Isaac
         games_played += 1 # Increments games played
         wins = slot_machine(wins) 
         print_wins(wins, games_played)
         game_choice = 100
-    elif game_choice == 6 or game_choice.lower().replace(" ", "") == "tic-tac-toe" or game_choice.lower().replace(" ", "") == "tictactoe": # Isaac
+    elif game_choice == 6 or game_choice == "tic-tac-toe" or game_choice == "tictactoe": # Isaac
         games_played += 1 # Increments games played
         wins = tic_tac_toe(wins) # Plays tic-tac-toe
         print_wins(wins, games_played)
         game_choice = 100
-    elif game_choice == 7 or game_choice.lower().replace(" ", "") == "dice" or game_choice.lower().replace(" ", "") == "dicegame": # Levi
+    elif game_choice == 7 or game_choice == "dice" or game_choice == "dicegame": # Levi
         games_played += 1 # Increments games played
         wins = dice_game(wins) # Plays dice game
         print_wins(wins, games_played)
         game_choice = 100
-    elif game_choice == 8 or game_choice.lower().replace(" ", "") == "aitrivia" or game_choice.lower().replace(" ", "") == "trivia": # Isaac
+    elif game_choice == 8 or game_choice == "aitrivia" or game_choice == "trivia": # Isaac
         games_played += 1 # Increments games played
         wins = ai_trivia(wins) # Plays AI Trivia
         print_wins(wins, games_played)
         game_choice = 100
-    elif game_choice == 9 or game_choice.lower().replace(" ", "") == "clock" or game_choice.lower().replace(" ", "") == "clockanglecalculator" or game_choice.lower().replace(" ", "") == "clockangle": # Joint code
+    elif game_choice == 9 or game_choice == "clock" or game_choice == "clockanglecalculator" or game_choice == "clockangle": # Joint code
         clock_angle_calculator() # Plays clock angle calculator
         game_choice = 100
     elif game_choice.lower() == "up up down down left right left right b a start" and allow_secret:
@@ -531,9 +536,6 @@ while game_choice != 0: # While the user does not want to quit, the games contin
         games_played += 1
         wins = secret_game.play_secret_game(wins)
         print_wins(wins, games_played)
-    elif game_choice == 0: # If the user wants to quit, the game ends.
-        print("Thanks for playing!") # Prints thank you message
-        break # Breaks out of the loop
     else:
         print("Invalid choice. Please enter a number between 0 and 9.") # If the user does not enter a valid number, they are told to enter a valid number.
 print_wins(wins, games_played, end_game=True) # Prints wins and the end of the game.
