@@ -25,8 +25,8 @@ Requirements:
 	• Python 3.9+
 	• git
 	• pip
-	• OpenAI Python library (If you follow instructions it will be added with the install)
-	• python-dotenv (If you follow instructions it will be added with the install)
+	• OpenAI Python library (If you follow instructions it will be added during the install)
+	• python-dotenv (If you follow instructions it will be added during the install)
 	• OpenAI compatible API key, endpoint and model (MUST BE OPENAI library compatible!)
 
 ### Get the repo using git:
@@ -87,12 +87,24 @@ Copy-Item .env.example .env
 
 ### Set up the .env file for proper use of AI features:
 > We recommend using nano or some other cli text editor, but any text editor works, such as VS code.
+
 ```
 AI_API_KEY=your_api_key_here                  # your OpenAI-compatible API key
 AI_ENDPOINT=https://api.openai.com/v1         # or your OpenAI-compatible endpoint
 MODEL=ai_model_here                           # or another OpenAI-compatible model
 ```
 
+### To edit the .env file ensuring proper use of AI features:
+
+macOS/Linux:
+```zsh
+nano .env
+```
+
+Windows
+```powershell
+notepad .env
+```
 
 ## Running:
 > While in the python environment and folder called 'Game-Selection'
