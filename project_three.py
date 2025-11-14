@@ -1,7 +1,6 @@
-# IMPORTS
+# IMPORTS some are below
 import os
 import random
-from openai import OpenAI
 from dotenv import load_dotenv
 
 path_to_env = "" # PATH TO ENV (LEAVE BLANK FOR CURRENT FOLDER)
