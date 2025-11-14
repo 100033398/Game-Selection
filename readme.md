@@ -23,7 +23,8 @@ Game Selection is a lightweight Python script to allow users to play multiple ga
 Requirements:
 
 	• Python 3.9+
-	• git
+	• git (reccomended to get this repo)
+		• Other options include curl and wget, both work for all mainstream OSes
 	• pip
 	• OpenAI Python library (If you follow instructions it will be added during the install)
 	• python-dotenv (If you follow instructions it will be added during the install)
@@ -34,7 +35,7 @@ Requirements:
 Using ```git clone```:
 > Make sure git is installed if you want to use it
 
-> If you don't have Git, [the installation instructions are here](https://github.com/git-guides/install-git).
+> If you don't have git, [the installation instructions are here](https://github.com/git-guides/install-git).
 ```
 git clone https://github.com/100033398/Game-Selection.git
 cd Game-Selection
