@@ -112,6 +112,7 @@ notepad .env
 > While in the python environment and folder called 'Game-Selection'
 
 macOS/Linux (python3):
+> Generally what is installed on modern systems
 ```zsh
 python3 project_three.py
 ```
