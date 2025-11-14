@@ -10,7 +10,9 @@ Game Selection is a lightweight Python script to allow users to play multiple ga
 	• Slot Machine
 	• Tic-Tac-Toe
 	• Dice Game
-	• AI Trivia
+	• AI Trivia (Requires OpenAI api access)
+	• Clock Hand Angle Calculator (Not a Game)
+	• A secret game
 
 
 
@@ -31,7 +33,7 @@ Requirements:
 > Make sure git is installed if you want to use it
 
 Using ```git clone```:
-> If you don't have Git, [download it here](https://github.com/git-guides/install-git).
+> If you don't have Git, [installation instructions here](https://github.com/git-guides/install-git).
 ```
 git clone https://github.com/100033398/Game-Selection.git
 cd Game-Selection
@@ -86,9 +88,9 @@ Copy-Item .env.example .env
 ### Set up the .env file for proper use of AI features:
 > We recommend using nano or some other cli text editor, but any text editor works, such as VS code.
 ```
-AI_API_KEY=your_api_key_here                  # your API key
-AI_ENDPOINT=https://api.openai.com/v1         # or your compatible endpoint
-MODEL=gpt-4o-mini                             # or another OpenAI-compatible model
+AI_API_KEY=your_api_key_here                  # your OpenAI-compatible API key
+AI_ENDPOINT=https://api.openai.com/v1         # or your OpenAI-compatible endpoint
+MODEL=ai_model_here                           # or another OpenAI-compatible model
 ```
 
 
