@@ -11,8 +11,8 @@ Game Selection is a lightweight Python script to allow users to play multiple ga
 	• Tic-Tac-Toe
 	• Dice Game
 	• AI Trivia (Requires OpenAI api access)
-	• Clock Hand Angle Calculator (Not a Game)
-	• A secret game
+	• Clock Hand Angle Calculator (Not a game)
+	• A Secret Game (Only accessible via special conditions) 
 
 
 
