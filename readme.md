@@ -1,5 +1,4 @@
 # Project Three: Game Selection
-By Levi and Isaac
 
 Game Selection is a lightweight Python script to allow users to play multiple games, such as:
 
